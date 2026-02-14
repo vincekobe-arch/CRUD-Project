@@ -32,5 +32,35 @@
                         return;
                     }
         }
+        
+    if(isset($_POST['save_data']))
+            {
+                $name = mysqli_real_escape_string($con, $_POST['fullname']);
+                $email = mysqli_real_escape_string($con, $_POST['email']);
+                $phone = mysqli_real_escape_string($con, $_POST['phone']);
+                $address = mysqli_real_escape_string($con, $_POST['address']);
 
+                $query = "INSERT INTO userinfo (email, name, phone, address)
+                VALUES ('$email', '$name', '$phone', '$address')";
+                $result = mysqli_query($con, $query);
+
+                if($result)
+                    {
+                        $res = [
+                            'status' => 200,
+                            'message' => 'sumakses.'
+                        ];
+                        echo json_encode($res);
+                        return;
+                    }
+                    else
+                        {
+                            $res = [
+                                'status' => 500,
+                                'message' => 'error.'
+                            ];
+                            echo json_encode($res);
+                            return;
+                        }
+            }    
 ?>
